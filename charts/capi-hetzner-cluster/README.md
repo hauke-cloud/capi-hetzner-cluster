@@ -50,6 +50,17 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.cilium.repoOverrides.type | string | `"default"` |  |
 | bootstrap.cilium.repoOverrides.url | string | `"https://helm.cilium.io/"` |  |
 | bootstrap.cilium.version | string | `"1.18.1"` |  |
+| bootstrap.flux.enabled | bool | `true` |  |
+| bootstrap.flux.kustomizationOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.key | string | `""` |  |
+| bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.name | string | `""` |  |
+| bootstrap.flux.kustomizationOverrides.path | string | `"./manifests/install"` |  |
+| bootstrap.flux.kustomizationOverrides.prune | bool | `true` |  |
+| bootstrap.flux.kustomizationOverrides.targetNamespace | string | `"flux-system"` |  |
+| bootstrap.flux.kustomizationOverrides.timeout | string | `"1m"` |  |
+| bootstrap.flux.repoOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.flux.repoOverrides.url | string | `"https://github.com/fluxcd/flux2.git"` |  |
+| bootstrap.flux.version | string | `"9.50.1"` |  |
 | bootstrap.hetznerCCM.chartOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
 | bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |

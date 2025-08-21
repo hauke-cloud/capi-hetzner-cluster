@@ -1,0 +1,27 @@
+{{ if .Values.bootstrap.flux.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-flux
+spec:
+  interval: {{ .Values.bootstrap.flux.repoOverrides.interval | default "5m0s" }}
+  url: {{ .Values.bootstrap.flux.repoOverrides.url | default "https://github.com/fluxcd/flux2.git" }}
+---
+apiVersion: helm.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-flux
+spec:
+  interval: {{ .Values.bootstrap.flux.kustomizationOverrides.interval | default "5m0s" }}
+  targetNamespace: {{ .Values.bootstrap.flux.kustomizationOverrides.targetNamespace | default "flux-system" }}
+  sourceRef:
+    kind: GitRepository
+    name: {{ include "capi-hetzner-cluster.name" . }}
+  path: {{ .Values.bootstrap.flux.kustomizationOverrides.path | default "./manifests/install" }}
+  prune: {{ .Values.bootstrap.flux.kustomizationOverrides.prune | default "true" }}
+  timeout: {{ .Values.bootstrap.flux.kustomizationOverrides.timeout | default "1m" }}
+  kubeConfig:
+    secretRef:
+      name: {{ .Values.bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
+      key: {{ .Values.bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.key | default "value" }}
+{{- end }}

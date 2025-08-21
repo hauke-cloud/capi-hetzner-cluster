@@ -155,6 +155,26 @@ bootstrap:
           name: ""
           key: ""
 
+  # Fluxv2 remote installation
+  # If enabled the Helm chart will create a Fluxv2 repository and release
+  # which will install the Fluxv2 via remote kubeconfig on the target cluster
+  flux:
+    enabled: true
+    version: 9.50.1
+    repoOverrides:
+      url: https://github.com/fluxcd/flux2.git
+      interval: 5m0s
+    kustomizationOverrides:
+      path: ./manifests/install
+      targetNamespace: flux-system
+      interval: 5m0s
+      prune: true
+      timeout: 1m
+      kubeConfig:
+        secretRef:
+          name: ""
+          key: ""
+
 # Network
 network:
   clusterNetwork:
