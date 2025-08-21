@@ -1,0 +1,31 @@
+{{ if .Values.bootstrap.hetznerCCM.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-ccm
+spec:
+  type: {{ .Values.bootstrap.hetznerCCM.repoOverrides.type | default "default" }}
+  interval: {{ .Values.bootstrap.hetznerCCM.repoOverrides.interval | default "5m0s" }}
+  url: {{ .Values.bootstrap.hetznerCCM.repoOverrides.url | default "https://charts.hetzner.cloud" }}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-ccm
+spec:
+  chart:
+    spec:
+      chart: {{ .Values.bootstrap.hetznerCCM.chartOverrides.name | default "hetzner-ccm" }}
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-ccm
+      version: {{ .Values.bootstrap.hetznerCCM.version | default "*" }}
+  interval: {{ .Values.bootstrap.hetznerCCM.chartOverrides.interval | default "5m0s" }}
+  targetNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "hetzner-ccm" }}
+  storageNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "hetzner-ccm" }}
+  kubeConfig:
+    secretRef:
+      name: {{ .Values.bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
+      key: {{ .Values.bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.key | default "value" }}
+{{- end }}
