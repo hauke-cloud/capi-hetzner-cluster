@@ -1,7 +1,7 @@
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
-  name: {{ include "capi-hetzner-cluster.name" $ }}-{{ .name }}
+  name: {{ include "capi-hetzner-cluster.name" $ }}-control-plane
 spec:
   {{- if .kubeadmConfigTemplate }}
   {{- with .kubeadmConfigTemplate }}
