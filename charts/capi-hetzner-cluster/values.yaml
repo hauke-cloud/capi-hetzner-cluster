@@ -58,11 +58,12 @@ workers:
     placement:
       type: spread
 
-# Network
-network:
+# Bootstrap
+# Bootstrap the remote cluster with basic components
+bootstrap:
   # Cilium remote installation
   # If enabled the Helm chart will create a Fluxv2 Helm repository and release
-  # which will install the Cilium via remote kubeconfig on the target cluster
+  # which will install Cilium via remote kubeconfig on the target cluster
   cilium:
     enabled: true
     version: 1.18.1
@@ -78,6 +79,28 @@ network:
         secretRef:
           name: ""
           key: ""
+
+  # Hetzner cloud controller manager remote installation
+  # If enabled the Helm chart will create a Hetzner repository and CCM release
+  # which will install the Hetzner CCM  via remote kubeconfig on the target cluster
+  hetznerCCM:
+    enabled: true
+    version: v1.26.0
+    repoOverrides:
+      url: https://charts.hetzner.cloud
+      interval: 5m0s
+      type: default
+    chartOverrides:
+      name: hcloud-cloud-controller-manager
+      targetNamespace: kube-system
+      interval: 5m0s
+      kubeConfig:
+        secretRef:
+          name: ""
+          key: ""
+
+# Network
+network:
   clusterNetwork:
     podCidrBlocks:
       - 10.244.0.0/16
