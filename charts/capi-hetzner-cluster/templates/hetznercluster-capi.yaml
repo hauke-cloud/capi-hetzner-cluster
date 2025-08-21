@@ -32,8 +32,8 @@ spec:
     {{- toYaml . | nindent 6 }}
     {{- end }}
     name: {{ .Values.hetzner.token.existingSecret.name }}
-  {{- with .Values.hetzner.sshKeys }}
   sshKeys:
     hcloud:
-      {{- toYaml . | nindent 6}}
-  {{- end }}
+    {{- range .Values.hetzner.sshKeys }}
+    {{- printf "- name: %s" . | nindent 6}}
+    {{- end }}
