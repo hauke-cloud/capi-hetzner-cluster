@@ -135,6 +135,11 @@ bootstrap:
       interval: 5m0s
       values:
         cloudProvider: clusterapi
+        clusterAPIMode: kubeconfig-incluster
+        extraArgs:
+          logtostderr: true
+          stderrthreshold: ERROR
+          v: 4
         rbac:
           additionalRules:
             - apiGroups:
@@ -145,6 +150,10 @@ bootstrap:
                 - get
                 - list
                 - watch
+      kubeConfig:
+        secretRef:
+          name: ""
+          key: ""
 
 # Network
 network:

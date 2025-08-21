@@ -22,8 +22,11 @@ spec:
         name: {{ include "capi-hetzner-cluster.name" . }}-autoscaler
       version: {{ .Values.bootstrap.autoscaler.version | default "*" }}
   interval: {{ .Values.bootstrap.autoscaler.chartOverrides.interval | default "5m0s" }}
-  {{- with .Values.bootstrap.autoscaler.chartOverrides.values }}
   values:
+    autoDiscovery:
+      clusterName: {{ include "capi-hetzner-cluster.name" . }}
+    clusterAPIKubeconfigSecret: {{ .Values.bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
+  {{- with .Values.bootstrap.autoscaler.chartOverrides.values }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
 {{- end }}

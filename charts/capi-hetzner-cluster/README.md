@@ -10,8 +10,14 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | bootstrap.autoscaler.chartOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.autoscaler.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
+| bootstrap.autoscaler.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
 | bootstrap.autoscaler.chartOverrides.name | string | `"cluster-autoscaler"` |  |
 | bootstrap.autoscaler.chartOverrides.values.cloudProvider | string | `"clusterapi"` |  |
+| bootstrap.autoscaler.chartOverrides.values.clusterAPIMode | string | `"kubeconfig-incluster"` |  |
+| bootstrap.autoscaler.chartOverrides.values.extraArgs.logtostderr | bool | `true` |  |
+| bootstrap.autoscaler.chartOverrides.values.extraArgs.stderrthreshold | string | `"ERROR"` |  |
+| bootstrap.autoscaler.chartOverrides.values.extraArgs.v | int | `4` |  |
 | bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].apiGroups[0] | string | `"infrastructure.cluster.x-k8s.io"` |  |
 | bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].resources[0] | string | `"hcloudmachinetemplates"` |  |
 | bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].verbs[0] | string | `"get"` |  |
