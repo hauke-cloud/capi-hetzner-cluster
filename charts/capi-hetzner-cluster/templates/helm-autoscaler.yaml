@@ -1,0 +1,29 @@
+{{ if .Values.bootstrap.autoscaler.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-autoscaler
+spec:
+  type: {{ .Values.bootstrap.autoscaler.repoOverrides.type | default "default" }}
+  interval: {{ .Values.bootstrap.autoscaler.repoOverrides.interval | default "5m0s" }}
+  url: {{ .Values.bootstrap.autoscaler.repoOverrides.url | default "https://kubernetes.github.io/autoscaler" }}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-autoscaler
+spec:
+  chart:
+    spec:
+      chart: {{ .Values.bootstrap.autoscaler.chartOverrides.name | default "cluster-autoscaler" }}
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "capi-hetzner-cluster.name" . }}-autoscaler
+      version: {{ .Values.bootstrap.autoscaler.version | default "*" }}
+  interval: {{ .Values.bootstrap.autoscaler.chartOverrides.interval | default "5m0s" }}
+  {{- with .Values.bootstrap.autoscaler.chartOverrides.values }}
+  values:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
