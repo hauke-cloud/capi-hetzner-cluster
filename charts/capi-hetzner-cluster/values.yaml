@@ -60,6 +60,9 @@ workers:
 
 # Network
 network:
+  # Cilium remote installation
+  # If enabled the Helm chart will create a Fluxv2 Helm repository and release
+  # which will install the Cilium via remote kubeconfig on the target cluster
   cilium:
     enabled: true
     version: 1.18.1
