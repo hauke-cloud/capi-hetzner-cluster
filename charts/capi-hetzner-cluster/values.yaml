@@ -75,6 +75,11 @@ bootstrap:
       name: cilium
       targetNamespace: kube-system
       interval: 5m0s
+      values:
+        hostFirewall:
+          enabled: true
+        extraArgs:
+          - --direct-routing-device=eth0
       kubeConfig:
         secretRef:
           name: ""

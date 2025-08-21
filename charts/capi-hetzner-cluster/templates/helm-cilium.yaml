@@ -24,6 +24,10 @@ spec:
   interval: {{ .Values.bootstrap.cilium.chartOverrides.interval | default "5m0s" }}
   targetNamespace: {{ .Values.bootstrap.cilium.chartOverrides.targetNamespace | default "cilium" }}
   storageNamespace: {{ .Values.bootstrap.cilium.chartOverrides.targetNamespace | default "cilium" }}
+  {{- with .Values.bootstrap.cilium.chartOverrides.values }}
+  values:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
   kubeConfig:
     secretRef:
       name: {{ .Values.bootstrap.cilium.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}

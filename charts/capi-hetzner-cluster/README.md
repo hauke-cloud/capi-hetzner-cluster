@@ -15,6 +15,8 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
 | bootstrap.cilium.chartOverrides.name | string | `"cilium"` |  |
 | bootstrap.cilium.chartOverrides.targetNamespace | string | `"kube-system"` |  |
+| bootstrap.cilium.chartOverrides.values.extraArgs[0] | string | `"--direct-routing-device=eth0"` |  |
+| bootstrap.cilium.chartOverrides.values.hostFirewall.enabled | bool | `true` |  |
 | bootstrap.cilium.enabled | bool | `true` |  |
 | bootstrap.cilium.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.cilium.repoOverrides.type | string | `"default"` |  |
