@@ -112,7 +112,7 @@ bootstrap:
 
   # Hetzner cloud controller manager remote installation
   # If enabled the Helm chart will create a Hetzner repository and CCM release
-  # which will install the Hetzner CCM  via remote kubeconfig on the target cluster
+  # which will install the Hetzner CCM via remote kubeconfig on the target cluster
   hetznerCCM:
     enabled: true
     version: v1.26.0
@@ -128,6 +128,25 @@ bootstrap:
         additionalTolerations:
           - key: "node.cluster.x-k8s.io/uninitialized"
             operator: Exists
+      kubeConfig:
+        secretRef:
+          name: ""
+          key: ""
+
+  # Hetzner CSI remote installation
+  # If enabled the Helm chart will create a Hetzner repository and clusterAPIMode release
+  # which will install the Hetzner CSI via remote kubeconfig on the target cluster
+  hetznerCSI:
+    enabled: true
+    version: 2.17.0
+    repoOverrides:
+      url: https://charts.hetzner.cloud
+      interval: 5m0s
+      type: default
+    chartOverrides:
+      name: hcloud-csi
+      targetNamespace: kube-system
+      interval: 5m0s
       kubeConfig:
         secretRef:
           name: ""

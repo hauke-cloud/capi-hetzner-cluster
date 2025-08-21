@@ -74,6 +74,16 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.hetznerCCM.repoOverrides.type | string | `"default"` |  |
 | bootstrap.hetznerCCM.repoOverrides.url | string | `"https://charts.hetzner.cloud"` |  |
 | bootstrap.hetznerCCM.version | string | `"v1.26.0"` |  |
+| bootstrap.hetznerCSI.chartOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.hetznerCSI.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
+| bootstrap.hetznerCSI.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
+| bootstrap.hetznerCSI.chartOverrides.name | string | `"hcloud-csi"` |  |
+| bootstrap.hetznerCSI.chartOverrides.targetNamespace | string | `"kube-system"` |  |
+| bootstrap.hetznerCSI.enabled | bool | `true` |  |
+| bootstrap.hetznerCSI.repoOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.hetznerCSI.repoOverrides.type | string | `"default"` |  |
+| bootstrap.hetznerCSI.repoOverrides.url | string | `"https://charts.hetzner.cloud"` |  |
+| bootstrap.hetznerCSI.version | string | `"2.17.0"` |  |
 | controlPlanes.endpoint.host | string | `""` |  |
 | controlPlanes.endpoint.port | int | `443` |  |
 | controlPlanes.flavor.name | string | `"cx22"` |  |

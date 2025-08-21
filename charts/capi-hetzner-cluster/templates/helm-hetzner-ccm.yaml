@@ -22,8 +22,8 @@ spec:
         name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-ccm
       version: {{ .Values.bootstrap.hetznerCCM.version | default "*" }}
   interval: {{ .Values.bootstrap.hetznerCCM.chartOverrides.interval | default "5m0s" }}
-  targetNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "hetzner-ccm" }}
-  storageNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "hetzner-ccm" }}
+  targetNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "kube-system" }}
+  storageNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "kube-system" }}
   values:
     env:
       HCLOUD_TOKEN:

@@ -1,0 +1,40 @@
+{{ if .Values.bootstrap.hetznerCSI.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-csi
+spec:
+  type: {{ .Values.bootstrap.hetznerCSI.repoOverrides.type | default "default" }}
+  interval: {{ .Values.bootstrap.hetznerCSI.repoOverrides.interval | default "5m0s" }}
+  url: {{ .Values.bootstrap.hetznerCSI.repoOverrides.url | default "https://charts.hetzner.cloud" }}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-csi
+spec:
+  chart:
+    spec:
+      chart: {{ .Values.bootstrap.hetznerCSI.chartOverrides.name | default "hetzner-csi" }}
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-csi
+      version: {{ .Values.bootstrap.hetznerCSI.version | default "*" }}
+  interval: {{ .Values.bootstrap.hetznerCSI.chartOverrides.interval | default "5m0s" }}
+  targetNamespace: {{ .Values.bootstrap.hetznerCSI.chartOverrides.targetNamespace | default "kube-system" }}
+  storageNamespace: {{ .Values.bootstrap.hetznerCSI.chartOverrides.targetNamespace | default "kube-system" }}
+  values:
+    controller:
+      hcloudToken:
+        existingSecret:
+          name: {{ include "capi-hetzner-cluster.name" . }}
+          key: hcloud
+  {{- with .Values.bootstrap.hetznerCSI.chartOverrides.values }}
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  kubeConfig:
+    secretRef:
+      name: {{ .Values.bootstrap.hetznerCSI.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
+      key: {{ .Values.bootstrap.hetznerCSI.chartOverrides.kubeConfig.secretRef.key | default "value" }}
+{{- end }}
