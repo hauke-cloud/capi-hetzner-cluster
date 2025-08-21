@@ -125,7 +125,7 @@ bootstrap:
   # which will install the Cluster Auto-Scaler via remote kubeconfig on the target cluster
   autoscaler:
     enabled: true
-    version: v1.26.0
+    version: 9.50.1
     repoOverrides:
       url: https://kubernetes.github.io/autoscaler
       interval: 5m0s

@@ -21,7 +21,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.autoscaler.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.autoscaler.repoOverrides.type | string | `"default"` |  |
 | bootstrap.autoscaler.repoOverrides.url | string | `"https://kubernetes.github.io/autoscaler"` |  |
-| bootstrap.autoscaler.version | string | `"v1.26.0"` |  |
+| bootstrap.autoscaler.version | string | `"9.50.1"` |  |
 | bootstrap.cilium.chartOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
