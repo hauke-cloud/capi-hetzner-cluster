@@ -80,6 +80,18 @@ bootstrap:
           enabled: true
         extraArgs:
           - --direct-routing-device=eth0
+        operator:
+          tolerations:
+            - key: "node-role.kubernetes.io/control-plane"
+              operator: Exists
+            - key: "node-role.kubernetes.io/master" #deprecated
+              operator: Exists
+            - key: "node.kubernetes.io/not-ready"
+              operator: Exists
+            - key: "node.cluster.x-k8s.io/uninitialized"
+              operator: Exists
+            - key: "node.cloudprovider.kubernetes.io/uninitialized"
+              operator: Exists
       kubeConfig:
         secretRef:
           name: ""
@@ -99,6 +111,10 @@ bootstrap:
       name: hcloud-cloud-controller-manager
       targetNamespace: kube-system
       interval: 5m0s
+      values:
+        additionalTolerations:
+          - key: "node.cluster.x-k8s.io/uninitialized"
+            operator: Exists
       kubeConfig:
         secretRef:
           name: ""

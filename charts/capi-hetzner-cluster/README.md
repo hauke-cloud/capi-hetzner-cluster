@@ -17,6 +17,16 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.cilium.chartOverrides.targetNamespace | string | `"kube-system"` |  |
 | bootstrap.cilium.chartOverrides.values.extraArgs[0] | string | `"--direct-routing-device=eth0"` |  |
 | bootstrap.cilium.chartOverrides.values.hostFirewall.enabled | bool | `true` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[0].key | string | `"node-role.kubernetes.io/control-plane"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[0].operator | string | `"Exists"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[1].key | string | `"node-role.kubernetes.io/master"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[1].operator | string | `"Exists"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[2].key | string | `"node.kubernetes.io/not-ready"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[2].operator | string | `"Exists"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[3].key | string | `"node.cluster.x-k8s.io/uninitialized"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[3].operator | string | `"Exists"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[4].key | string | `"node.cloudprovider.kubernetes.io/uninitialized"` |  |
+| bootstrap.cilium.chartOverrides.values.operator.tolerations[4].operator | string | `"Exists"` |  |
 | bootstrap.cilium.enabled | bool | `true` |  |
 | bootstrap.cilium.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.cilium.repoOverrides.type | string | `"default"` |  |
@@ -27,6 +37,8 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
 | bootstrap.hetznerCCM.chartOverrides.name | string | `"hcloud-cloud-controller-manager"` |  |
 | bootstrap.hetznerCCM.chartOverrides.targetNamespace | string | `"kube-system"` |  |
+| bootstrap.hetznerCCM.chartOverrides.values.additionalTolerations[0].key | string | `"node.cluster.x-k8s.io/uninitialized"` |  |
+| bootstrap.hetznerCCM.chartOverrides.values.additionalTolerations[0].operator | string | `"Exists"` |  |
 | bootstrap.hetznerCCM.enabled | bool | `true` |  |
 | bootstrap.hetznerCCM.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.hetznerCCM.repoOverrides.type | string | `"default"` |  |
