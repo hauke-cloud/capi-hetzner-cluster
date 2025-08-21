@@ -16,4 +16,4 @@ spec:
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: HetznerCluster
-    name: {{ include "capi-hetzner-cluster.fullname" . }}
+    name: {{ include "capi-hetzner-cluster.name" . }}
