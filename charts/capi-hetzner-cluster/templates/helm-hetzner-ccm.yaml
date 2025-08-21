@@ -24,8 +24,14 @@ spec:
   interval: {{ .Values.bootstrap.hetznerCCM.chartOverrides.interval | default "5m0s" }}
   targetNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "hetzner-ccm" }}
   storageNamespace: {{ .Values.bootstrap.hetznerCCM.chartOverrides.targetNamespace | default "hetzner-ccm" }}
-  {{- with .Values.bootstrap.hetznerCCM.chartOverrides.values }}
   values:
+    env:
+      HCLOUD_TOKEN:
+        valueFrom:
+          secretKeyRef:
+            name: {{ include "capi-hetzner-cluster.name" . }}
+            key: token
+  {{- with .Values.bootstrap.hetznerCCM.chartOverrides.values }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
   kubeConfig:
