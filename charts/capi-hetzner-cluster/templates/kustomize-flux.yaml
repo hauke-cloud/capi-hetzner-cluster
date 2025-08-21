@@ -16,7 +16,7 @@ spec:
   targetNamespace: {{ .Values.bootstrap.flux.kustomizationOverrides.targetNamespace | default "flux-system" }}
   sourceRef:
     kind: GitRepository
-    name: {{ include "capi-hetzner-cluster.name" . }}
+    name: {{ include "capi-hetzner-cluster.name" . }}-flux
   path: {{ .Values.bootstrap.flux.kustomizationOverrides.path | default "./manifests/install" }}
   prune: {{ .Values.bootstrap.flux.kustomizationOverrides.prune | default "true" }}
   timeout: {{ .Values.bootstrap.flux.kustomizationOverrides.timeout | default "1m" }}
