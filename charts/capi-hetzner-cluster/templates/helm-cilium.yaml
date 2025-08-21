@@ -1,0 +1,29 @@
+{{ if .Values.network.cilium.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-cilium
+spec:
+  type: {{ .Values.network.cilium.repoOverrides.type | default "default" }}
+  interval: {{ .Values.network.cilium.repoOverrides.interval | default "5m0s" }}
+  url: {{ .Values.network.cilium.repoOverrides.url | default "https://helm.cilium.io/" }}
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" . }}-cilium
+spec:
+  chart:
+    spec:
+      chart: {{ .Values.network.cilium.chartOverrides.name | default "cilium" }}
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: {{ include "capi-hetzner-cluster.name" . }}-cilium
+      version: {{ .Values.network.cilium.version | default "*" }}
+  interval: {{ .Values.network.cilium.chartOverrides.interval | default "5m0s" }}
+  kubeConfig:
+    secretRef:
+      name: {{ .Values.network.cilium.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
+      key: {{ .Values.network.cilium.chartOverrides.kubeConfig.secretRef.key | default "value" }}
+{{- end }}
