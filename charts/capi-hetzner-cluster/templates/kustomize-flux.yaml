@@ -7,7 +7,7 @@ spec:
   interval: {{ .Values.bootstrap.flux.repoOverrides.interval | default "5m0s" }}
   url: {{ .Values.bootstrap.flux.repoOverrides.url | default "https://github.com/fluxcd/flux2.git" }}
 ---
-apiVersion: helm.toolkit.fluxcd.io/v1
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: {{ include "capi-hetzner-cluster.name" . }}-flux
