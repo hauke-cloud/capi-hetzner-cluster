@@ -120,6 +120,32 @@ bootstrap:
           name: ""
           key: ""
 
+  # Cluster Auto-Scaler remote installation
+  # If enabled the Helm chart will create a CA repository and release
+  # which will install the Cluster Auto-Scaler via remote kubeconfig on the target cluster
+  autoscaler:
+    enabled: true
+    version: v1.26.0
+    repoOverrides:
+      url: https://kubernetes.github.io/autoscaler
+      interval: 5m0s
+      type: default
+    chartOverrides:
+      name: cluster-autoscaler
+      interval: 5m0s
+      values:
+        cloudProvider: clusterapi
+        rbac:
+          additionalRules:
+            - apiGroups:
+                - infrastructure.cluster.x-k8s.io
+              resources:
+                - hcloudmachinetemplates
+              verbs:
+                - get
+                - list
+                - watch
+
 # Network
 network:
   clusterNetwork:
@@ -143,9 +169,6 @@ healthChecks:
     - status: "False"
       timeout: 180s
       type: Ready
-
-autoscaling:
-  enabled: false
 
 nodeSelector: {}
 

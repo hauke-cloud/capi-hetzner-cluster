@@ -9,7 +9,19 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| autoscaling.enabled | bool | `false` |  |
+| bootstrap.autoscaler.chartOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.autoscaler.chartOverrides.name | string | `"cluster-autoscaler"` |  |
+| bootstrap.autoscaler.chartOverrides.values.cloudProvider | string | `"clusterapi"` |  |
+| bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].apiGroups[0] | string | `"infrastructure.cluster.x-k8s.io"` |  |
+| bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].resources[0] | string | `"hcloudmachinetemplates"` |  |
+| bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].verbs[0] | string | `"get"` |  |
+| bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].verbs[1] | string | `"list"` |  |
+| bootstrap.autoscaler.chartOverrides.values.rbac.additionalRules[0].verbs[2] | string | `"watch"` |  |
+| bootstrap.autoscaler.enabled | bool | `true` |  |
+| bootstrap.autoscaler.repoOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.autoscaler.repoOverrides.type | string | `"default"` |  |
+| bootstrap.autoscaler.repoOverrides.url | string | `"https://kubernetes.github.io/autoscaler"` |  |
+| bootstrap.autoscaler.version | string | `"v1.26.0"` |  |
 | bootstrap.cilium.chartOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
