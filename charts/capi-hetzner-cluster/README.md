@@ -39,6 +39,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | network.cilium.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
 | network.cilium.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
 | network.cilium.chartOverrides.name | string | `"cilium"` |  |
+| network.cilium.chartOverrides.targetNamespace | string | `"kube-system"` |  |
 | network.cilium.enabled | bool | `true` |  |
 | network.cilium.repoOverrides.interval | string | `"5m0s"` |  |
 | network.cilium.repoOverrides.type | string | `"default"` |  |

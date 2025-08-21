@@ -69,6 +69,7 @@ network:
       type: default
     chartOverrides:
       name: cilium
+      targetNamespace: kube-system
       interval: 5m0s
       kubeConfig:
         secretRef:

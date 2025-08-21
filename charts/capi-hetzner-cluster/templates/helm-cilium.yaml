@@ -22,6 +22,7 @@ spec:
         name: {{ include "capi-hetzner-cluster.name" . }}-cilium
       version: {{ .Values.network.cilium.version | default "*" }}
   interval: {{ .Values.network.cilium.chartOverrides.interval | default "5m0s" }}
+  targetNamespace: {{ .Values.network.cilium.chartOverrides.targetNamespace | default "cilium" }}
   kubeConfig:
     secretRef:
       name: {{ .Values.network.cilium.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
