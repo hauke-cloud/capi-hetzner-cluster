@@ -7,7 +7,8 @@ spec:
   interval: {{ .Values.bootstrap.flux.repoOverrides.interval | default "5m0s" }}
   url: {{ .Values.bootstrap.flux.repoOverrides.url | default "https://github.com/fluxcd/flux2.git" }}
   {{- with .Values.bootstrap.flux.repoOverrides.ref }}
-  {{- toYaml . | nindent 2 }}
+  ref:
+  {{- toYaml . | nindent 4 }}
   {{- end }}
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
