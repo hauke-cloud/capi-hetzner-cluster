@@ -10,7 +10,6 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | autoscaling.enabled | bool | `false` |  |
-| clusterNetwork.podCidrBlocks[0] | string | `"10.244.0.0/16"` |  |
 | controlPlanes.endpoint.host | string | `""` |  |
 | controlPlanes.endpoint.port | int | `443` |  |
 | controlPlanes.flavor.name | string | `"cx22"` |  |
@@ -36,6 +35,16 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | hetzner.token.existingSecret.name | string | `"prod"` |  |
 | kubernetes.version | string | `"v1.32.7"` |  |
 | nameOverride | string | `""` |  |
+| network.cilium.chartOverrides.interval | string | `"5m0s"` |  |
+| network.cilium.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
+| network.cilium.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
+| network.cilium.chartOverrides.name | string | `"cilium"` |  |
+| network.cilium.enabled | bool | `true` |  |
+| network.cilium.repoOverrides.interval | string | `"5m0s"` |  |
+| network.cilium.repoOverrides.type | string | `"default"` |  |
+| network.cilium.repoOverrides.url | string | `"https://helm.cilium.io/"` |  |
+| network.cilium.version | string | `"1.18.1"` |  |
+| network.clusterNetwork.podCidrBlocks[0] | string | `"10.244.0.0/16"` |  |
 | nodeSelector | object | `{}` |  |
 | remedation.retryLimit | int | `1` |  |
 | remedation.timeout | string | `"180s"` |  |

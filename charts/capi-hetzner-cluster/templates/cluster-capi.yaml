@@ -5,7 +5,7 @@ metadata:
 spec:
   clusterNetwork:
     pods:
-      {{- with .Values.clusterNetwork.podCidrBlocks }}
+      {{- with .Values.network.clusterNetwork.podCidrBlocks }}
       cidrBlocks:
       {{- toYaml . | nindent 8 }}
       {{- end }}

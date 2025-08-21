@@ -59,9 +59,24 @@ workers:
       type: spread
 
 # Network
-clusterNetwork:
-  podCidrBlocks:
-    - 10.244.0.0/16
+network:
+  cilium:
+    enabled: true
+    version: 1.18.1
+    repoOverrides:
+      url: https://helm.cilium.io/
+      interval: 5m0s
+      type: default
+    chartOverrides:
+      name: cilium
+      interval: 5m0s
+      kubeConfig:
+        secretRef:
+          name: ""
+          key: ""
+  clusterNetwork:
+    podCidrBlocks:
+      - 10.244.0.0/16
 
 # Remedations
 remedation:
