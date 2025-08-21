@@ -24,7 +24,7 @@ kubernetes:
 
 # Control Planes
 controlPlanes:
-  image: ubuntu-24-04
+  image: ubuntu-24.04
   nodes: 3
   regions:
     - fsn1
@@ -43,7 +43,7 @@ controlPlanes:
 # Workers
 workers:
   - name: worker-1
-    image: ubuntu-24-04
+    image: ubuntu-24.04
     minNodes: 0
     maxNodes: 5
     region: fsn1

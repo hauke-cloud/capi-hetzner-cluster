@@ -14,7 +14,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | controlPlanes.endpoint.host | string | `""` |  |
 | controlPlanes.endpoint.port | int | `443` |  |
 | controlPlanes.flavor.name | string | `"cx22"` |  |
-| controlPlanes.image | string | `"ubuntu-24-04"` |  |
+| controlPlanes.image | string | `"ubuntu-24.04"` |  |
 | controlPlanes.loadBalancer.region | string | `"fsn1"` |  |
 | controlPlanes.network.enabled | bool | `false` |  |
 | controlPlanes.nodes | int | `3` |  |
@@ -46,7 +46,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | workers[0].flavor.maxPods | int | `120` |  |
 | workers[0].flavor.memory | string | `"4Gi"` |  |
 | workers[0].flavor.name | string | `"cx22"` |  |
-| workers[0].image | string | `"ubuntu-24-04"` |  |
+| workers[0].image | string | `"ubuntu-24.04"` |  |
 | workers[0].maxNodes | int | `5` |  |
 | workers[0].minNodes | int | `0` |  |
 | workers[0].name | string | `"worker-1"` |  |
