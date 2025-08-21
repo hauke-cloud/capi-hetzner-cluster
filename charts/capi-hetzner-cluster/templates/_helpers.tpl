@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "example.name" -}}
+{{- define "capi-hetzner-cluster.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "example.fullname" -}}
+{{- define "capi-hetzner-cluster.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "example.chart" -}}
+{{- define "capi-hetzner-cluster.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "example.labels" -}}
-helm.sh/chart: {{ include "example.chart" . }}
-{{ include "example.selectorLabels" . }}
+{{- define "capi-hetzner-cluster.labels" -}}
+helm.sh/chart: {{ include "capi-hetzner-cluster.chart" . }}
+{{ include "capi-hetzner-cluster.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "example.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "example.name" . }}
+{{- define "capi-hetzner-cluster.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "capi-hetzner-cluster.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "example.serviceAccountName" -}}
+{{- define "capi-hetzner-cluster.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "example.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "capi-hetzner-cluster.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

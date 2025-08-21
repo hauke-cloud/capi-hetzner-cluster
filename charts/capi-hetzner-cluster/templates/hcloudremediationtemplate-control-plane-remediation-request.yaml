@@ -1,0 +1,13 @@
+{{- with .Values.remedation }}
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HCloudRemediationTemplate
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" $ }}-control-plane
+spec:
+  template:
+    spec:
+      strategy:
+        retryLimit: {{ .retryLimit }}
+        timeout: {{ .timeout }}
+        type: {{ .type }}
+{{- end }}

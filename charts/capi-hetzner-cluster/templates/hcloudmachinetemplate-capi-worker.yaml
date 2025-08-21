@@ -1,0 +1,12 @@
+{{- range .Values.workers }}
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HCloudMachineTemplate
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" $ }}-{{ .name }}
+spec:
+  template:
+    spec:
+      imageName: {{ .image }}
+      placementGroupName: {{ include "capi-hetzner-cluster.name" $ }}-{{ .name }}
+      type: {{ .flavor.name }}
+{{- end }}

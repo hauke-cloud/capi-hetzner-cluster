@@ -1,0 +1,21 @@
+{{- with .Values.healthChecks }}
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachineHealthCheck
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" $ }}-worker
+spec:
+  clusterName: {{ include "capi-hetzner-cluster.name" $ }}
+  maxUnhealthy: {{ .maxUnhealthy | default "100%" }}
+  nodeStartupTimeout: {{ .nodeStartupTimeout | default "15m" }}
+  remediationTemplate:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: HCloudRemediationTemplate
+    name: {{ include "capi-hetzner-cluster.name" $ }}-worker
+  selector:
+    matchLabels:
+      cluster.x-k8s.io/control-plane: ""
+  {{- with .unhealthyConditions }}
+  unhealthyConditions:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

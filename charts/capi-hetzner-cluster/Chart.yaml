@@ -1,0 +1,6 @@
+apiVersion: v2
+name: capi-hetzner-cluster
+description: Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
+type: application
+version: 0.1.0
+appVersion: "0.0.1"

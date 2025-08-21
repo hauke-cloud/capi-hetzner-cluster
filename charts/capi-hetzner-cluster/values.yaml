@@ -1,0 +1,91 @@
+# Default values for example.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# Hetzner related settings
+hetzner:
+  token:
+    existingSecret:
+      name: prod
+      keys:
+        hcloudToken: hcloud
+        hetznerRobotPassword: robot-password
+        hetznerRobotUser: robot-user
+  sshKeys:
+    - default-0
+
+# Kubernetes
+kubernetes:
+  version: v1.32.7
+
+# Control Planes
+controlPlanes:
+  image: ubuntu-24-04
+  nodes: 3
+  regions:
+    - fsn1
+  flavor:
+    name: cx22
+  endpoint:
+    host: ""
+    port: 443
+  loadBalancer:
+    region: fsn1
+  network:
+    enabled: false
+  placement:
+    type: spread
+
+# Workers
+workers:
+  - name: worker-1
+    image: ubuntu-24-04
+    minNodes: 0
+    maxNodes: 5
+    region: fsn1
+    flavor:
+      name: cx22
+      cpu: 2
+      memory: 4Gi
+      ephemeralStorage: 40Gi
+      # hugepages-1Gi: 0
+      # hugepages-2Mi 0
+      maxPods: 120
+    placement:
+      type: spread
+
+# Network
+clusterNetwork:
+  podCidrBlocks:
+    - 10.244.0.0/16
+
+# Remedations
+remedation:
+  retryLimit: 1
+  timeout: 180s
+  type: Reboot
+
+# Health checks
+healthChecks:
+  maxUnhealthy: 100%
+  nodeStartupTimeout: 15m
+  unhealhyConditions:
+    - status: Unknown
+      timeout: 180s
+      type: Ready
+    - status: "False"
+      timeout: 180s
+      type: Ready
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

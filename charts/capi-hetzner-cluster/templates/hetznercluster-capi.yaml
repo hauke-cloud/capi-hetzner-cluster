@@ -1,0 +1,39 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: HetznerCluster
+metadata:
+  name: {{ include "capi-hetzner-cluster.name" $ }}
+spec:
+  {{- with .Values.controlPlanes.endpoint }}
+  controlPlaneEndpoint:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.controlPlanes.loadBalancer }}
+  controlPlaneLoadBalancer:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.controlPlanes.regions }}
+  controlPlaneRegions:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.controlPlanes.network }}
+  hcloudNetwork:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  hcloudPlacementGroups:
+    - name: {{ include "capi-hetzner-cluster.name" $ }}-control-plane
+      type: {{ .Values.controlPlanes.placement.type }}
+  {{- range .Values.workers }}
+    - name: {{ include "capi-hetzner-cluster.name" $ }}-{{ .name }}
+      type: {{ .placement.type }}
+  {{- end }}
+  hetznerSecretRef:
+    {{- with .Values.hetzner.token.existingSecret.keys }}
+    key:
+    {{- toYaml . | nindent 6 }}
+    {{- end }}
+    name: {{ .Values.hetzner.token.existingSecret.name }}
+  {{- with .Values.hetzner.sshKeys }}
+  sshKeys:
+    hcloud:
+      {{- toYaml . | nindent 6}}
+  {{- end }}
