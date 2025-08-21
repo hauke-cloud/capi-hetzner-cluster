@@ -1,8 +1,13 @@
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
-  name: prod-control-plane
+  name: {{ include "capi-hetzner-cluster.name" $ }}-{{ .name }}
 spec:
+  {{- if .kubeadmConfigTemplate }}
+  {{- with .kubeadmConfigTemplate }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  {{- else }}
   kubeadmConfigSpec:
     clusterConfiguration:
       apiServer:
@@ -33,12 +38,11 @@ spec:
           tls-cert-file: /etc/kubernetes/pki/apiserver.crt
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
           tls-private-key-file: /etc/kubernetes/pki/apiserver.key
-          oidc-issuer-url: "https://id.hauke.cloud/realms/devops"
-          oidc-client-id: "prod-kubernetes-api-server"
-          oidc-username-claim: "email"
-          oidc-username-prefix: "idp:"
-          oidc-groups-claim: "groups"
-          oidc-groups-prefix: "idp-groups:"
+          {{- if .Values.oidc.enabled }}
+          {{- with .Values.oidc.args }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- end }}
       controllerManager:
         extraArgs:
           allocate-node-cidrs: "true"
@@ -225,10 +229,11 @@ spec:
       - echo 'source <(kubectl completion bash)' >>/root/.bashrc
       - echo 'export KUBECONFIG=/etc/kubernetes/admin.conf' >>/root/.bashrc
       - apt-get -y autoremove && apt-get -y clean all
+  {{- end }}
   machineTemplate:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
       kind: HCloudMachineTemplate
-      name: prod-control-plane
-  replicas: 3
-  version: v1.32.7
+      name: {{ include "capi-hetzner-cluster.name" $ }}-control-plane
+  replicas: {{ .Values.controlPlanes.nodes | default 3 }}
+  version: {{ .Values.kubernetes.version }}

@@ -78,6 +78,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | controlPlanes.endpoint.port | int | `443` |  |
 | controlPlanes.flavor.name | string | `"cx22"` |  |
 | controlPlanes.image | string | `"ubuntu-24.04"` |  |
+| controlPlanes.kubeadmConfigTemplate | object | `{}` |  |
 | controlPlanes.loadBalancer.region | string | `"fsn1"` |  |
 | controlPlanes.network.enabled | bool | `false` |  |
 | controlPlanes.nodes | int | `3` |  |
@@ -101,6 +102,13 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | nameOverride | string | `""` |  |
 | network.clusterNetwork.podCidrBlocks[0] | string | `"10.244.0.0/16"` |  |
 | nodeSelector | object | `{}` |  |
+| oidc.args.oidc-client-id | string | `"client-id"` |  |
+| oidc.args.oidc-groups-claim | string | `"groups"` |  |
+| oidc.args.oidc-groups-prefix | string | `"idp-groups:"` |  |
+| oidc.args.oidc-issuer-url | string | `"https://example.com/realms/example"` |  |
+| oidc.args.oidc-username-claim | string | `"email"` |  |
+| oidc.args.oidc-username-prefix | string | `"idp:"` |  |
+| oidc.enabled | bool | `false` |  |
 | remedation.retryLimit | int | `1` |  |
 | remedation.timeout | string | `"180s"` |  |
 | remedation.type | string | `"Reboot"` |  |
@@ -111,6 +119,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | workers[0].flavor.memory | string | `"4Gi"` |  |
 | workers[0].flavor.name | string | `"cx22"` |  |
 | workers[0].image | string | `"ubuntu-24.04"` |  |
+| workers[0].kubeadmConfigTemplate | object | `{}` |  |
 | workers[0].maxNodes | int | `5` |  |
 | workers[0].minNodes | int | `0` |  |
 | workers[0].name | string | `"worker-1"` |  |

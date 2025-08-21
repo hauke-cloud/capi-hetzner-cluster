@@ -22,6 +22,17 @@ hetzner:
 kubernetes:
   version: v1.32.7
 
+# OIDC
+oidc:
+  enabled: false
+  args:
+    oidc-issuer-url: "https://example.com/realms/example"
+    oidc-client-id: "client-id"
+    oidc-username-claim: "email"
+    oidc-username-prefix: "idp:"
+    oidc-groups-claim: "groups"
+    oidc-groups-prefix: "idp-groups:"
+
 # Control Planes
 controlPlanes:
   image: ubuntu-24.04
@@ -39,6 +50,7 @@ controlPlanes:
     enabled: false
   placement:
     type: spread
+  kubeadmConfigTemplate: {}
 
 # Workers
 workers:
@@ -57,6 +69,7 @@ workers:
       maxPods: 120
     placement:
       type: spread
+    kubeadmConfigTemplate: {}
 
 # Bootstrap
 # Bootstrap the remote cluster with basic components
