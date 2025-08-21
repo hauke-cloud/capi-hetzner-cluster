@@ -30,7 +30,7 @@ spec:
         valueFrom:
           secretKeyRef:
             name: {{ include "capi-hetzner-cluster.name" . }}
-            key: token
+            key: hcloud
   {{- with .Values.bootstrap.hetznerCCM.chartOverrides.values }}
   {{- toYaml . | nindent 4 }}
   {{- end }}
