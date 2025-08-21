@@ -59,6 +59,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.flux.kustomizationOverrides.targetNamespace | string | `"flux-system"` |  |
 | bootstrap.flux.kustomizationOverrides.timeout | string | `"1m"` |  |
 | bootstrap.flux.repoOverrides.interval | string | `"5m0s"` |  |
+| bootstrap.flux.repoOverrides.ref.branch | string | `"main"` |  |
 | bootstrap.flux.repoOverrides.url | string | `"https://github.com/fluxcd/flux2.git"` |  |
 | bootstrap.flux.version | string | `"9.50.1"` |  |
 | bootstrap.hetznerCCM.chartOverrides.interval | string | `"5m0s"` |  |

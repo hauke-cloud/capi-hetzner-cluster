@@ -163,6 +163,8 @@ bootstrap:
     version: 9.50.1
     repoOverrides:
       url: https://github.com/fluxcd/flux2.git
+      ref:
+        branch: main
       interval: 5m0s
     kustomizationOverrides:
       path: ./manifests/install
