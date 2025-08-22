@@ -90,7 +90,6 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | controlPlanes.image | string | `"ubuntu-24.04"` |  |
 | controlPlanes.kubeadmConfigTemplate | object | `{}` |  |
 | controlPlanes.loadBalancer.region | string | `"fsn1"` |  |
-| controlPlanes.network.enabled | bool | `false` |  |
 | controlPlanes.nodes | int | `3` |  |
 | controlPlanes.placement.type | string | `"spread"` |  |
 | controlPlanes.regions[0] | string | `"fsn1"` |  |
@@ -110,7 +109,8 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | hetzner.token.existingSecret.name | string | `"prod"` |  |
 | kubernetes.version | string | `"v1.32.7"` |  |
 | nameOverride | string | `""` |  |
-| network.clusterNetwork.podCidrBlocks[0] | string | `"10.244.0.0/16"` |  |
+| network.clusterNetwork.pods.cidrBlocks[0] | string | `"10.244.0.0/16"` |  |
+| network.hcloudNetwork.enabled | bool | `false` |  |
 | nodeSelector | object | `{}` |  |
 | oidc.args.oidc-client-id | string | `"client-id"` |  |
 | oidc.args.oidc-groups-claim | string | `"groups"` |  |

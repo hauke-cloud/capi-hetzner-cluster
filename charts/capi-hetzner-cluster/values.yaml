@@ -46,8 +46,6 @@ controlPlanes:
     port: 443
   loadBalancer:
     region: fsn1
-  network:
-    enabled: false
   placement:
     type: spread
   kubeadmConfigTemplate: {}
@@ -211,9 +209,15 @@ bootstrap:
 
 # Network
 network:
+  hcloudNetwork:
+    enabled: false
+    # cidrBlock: 10.10.0.0/16
+    # networkZone: eu-central
+    # subnetCidrBlock: 10.10.5.0/24
   clusterNetwork:
-    podCidrBlocks:
-      - 10.244.0.0/16
+    pods:
+      cidrBlocks:
+        - 10.244.0.0/16
 
 # Remedations
 remedation:

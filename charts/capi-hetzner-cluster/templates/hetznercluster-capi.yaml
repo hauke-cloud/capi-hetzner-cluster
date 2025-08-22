@@ -15,7 +15,7 @@ spec:
   controlPlaneRegions:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- with .Values.controlPlanes.network }}
+  {{- with .Values.network.hcloudNetwork }}
   hcloudNetwork:
   {{- toYaml . | nindent 4 }}
   {{- end }}
