@@ -25,6 +25,7 @@ spec:
   values:
     autoDiscovery:
       clusterName: {{ include "capi-hetzner-cluster.name" . }}
+      namespace: {{ .Release.Namespace }}
     clusterAPIKubeconfigSecret: {{ .Values.bootstrap.hetznerCCM.chartOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
   {{- with .Values.bootstrap.autoscaler.chartOverrides.values }}
   {{- toYaml . | nindent 4 }}
