@@ -28,10 +28,4 @@ spec:
     secretRef:
       name: {{ .Values.bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.name | default (printf "%s-kubeconfig" (include "capi-hetzner-cluster.name" .)) }}
       key: {{ .Values.bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.key | default "value" }}
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: flux-apps
-spec: {}
 {{- end }}
