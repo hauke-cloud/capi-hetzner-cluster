@@ -23,6 +23,7 @@ spec:
       version: {{ .Values.bootstrap.autoscaler.version | default "*" }}
   interval: {{ .Values.bootstrap.autoscaler.chartOverrides.interval | default "5m0s" }}
   values:
+    nameOverride: {{ .Release.Namespace }}-{{ include "capi-hetzner-cluster.name" . }}
     autoDiscovery:
       clusterName: {{ include "capi-hetzner-cluster.name" . }}
       namespace: {{ .Release.Namespace }}
