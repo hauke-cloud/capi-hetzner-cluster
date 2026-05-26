@@ -8,7 +8,7 @@ spec:
   interval: {{ .Values.bootstrap.autoscaler.repoOverrides.interval | default "5m0s" }}
   url: {{ .Values.bootstrap.autoscaler.repoOverrides.url | default "https://kubernetes.github.io/autoscaler" }}
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: {{ include "capi-hetzner-cluster.name" . }}-autoscaler

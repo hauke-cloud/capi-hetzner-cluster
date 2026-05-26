@@ -8,7 +8,7 @@ spec:
   interval: {{ .Values.bootstrap.hetznerCSI.repoOverrides.interval | default "5m0s" }}
   url: {{ .Values.bootstrap.hetznerCSI.repoOverrides.url | default "https://charts.hetzner.cloud" }}
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-csi

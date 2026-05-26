@@ -8,7 +8,7 @@ spec:
   interval: {{ .Values.bootstrap.cilium.repoOverrides.interval | default "5m0s" }}
   url: {{ .Values.bootstrap.cilium.repoOverrides.url | default "https://helm.cilium.io/" }}
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: {{ include "capi-hetzner-cluster.name" . }}-cilium
