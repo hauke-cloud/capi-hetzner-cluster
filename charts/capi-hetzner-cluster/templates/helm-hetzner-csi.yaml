@@ -1,5 +1,5 @@
 {{ if .Values.bootstrap.hetznerCSI.enabled }}
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: {{ include "capi-hetzner-cluster.name" . }}-hetzner-csi
