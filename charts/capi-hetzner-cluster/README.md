@@ -27,7 +27,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.autoscaler.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.autoscaler.repoOverrides.type | string | `"default"` |  |
 | bootstrap.autoscaler.repoOverrides.url | string | `"https://kubernetes.github.io/autoscaler"` |  |
-| bootstrap.autoscaler.version | string | `"9.50.1"` |  |
+| bootstrap.autoscaler.version | string | `"9.57.0"` |  |
 | bootstrap.cilium.chartOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
 | bootstrap.cilium.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
@@ -49,7 +49,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.cilium.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.cilium.repoOverrides.type | string | `"default"` |  |
 | bootstrap.cilium.repoOverrides.url | string | `"https://helm.cilium.io/"` |  |
-| bootstrap.cilium.version | string | `"1.18.1"` |  |
+| bootstrap.cilium.version | string | `"1.19.4"` |  |
 | bootstrap.flux.enabled | bool | `true` |  |
 | bootstrap.flux.kustomizationOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.flux.kustomizationOverrides.kubeConfig.secretRef.key | string | `""` |  |
@@ -73,7 +73,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.hetznerCCM.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.hetznerCCM.repoOverrides.type | string | `"default"` |  |
 | bootstrap.hetznerCCM.repoOverrides.url | string | `"https://charts.hetzner.cloud"` |  |
-| bootstrap.hetznerCCM.version | string | `"v1.26.0"` |  |
+| bootstrap.hetznerCCM.version | string | `"v1.31.1"` |  |
 | bootstrap.hetznerCSI.chartOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.hetznerCSI.chartOverrides.kubeConfig.secretRef.key | string | `""` |  |
 | bootstrap.hetznerCSI.chartOverrides.kubeConfig.secretRef.name | string | `""` |  |
@@ -83,7 +83,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | bootstrap.hetznerCSI.repoOverrides.interval | string | `"5m0s"` |  |
 | bootstrap.hetznerCSI.repoOverrides.type | string | `"default"` |  |
 | bootstrap.hetznerCSI.repoOverrides.url | string | `"https://charts.hetzner.cloud"` |  |
-| bootstrap.hetznerCSI.version | string | `"2.17.0"` |  |
+| bootstrap.hetznerCSI.version | string | `"2.21.2"` |  |
 | controlPlanes.endpoint.host | string | `""` |  |
 | controlPlanes.endpoint.port | int | `443` |  |
 | controlPlanes.flavor.name | string | `"cx22"` |  |
@@ -127,7 +127,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | workers[0].flavor.ephemeralStorage | string | `"40Gi"` |  |
 | workers[0].flavor.maxPods | int | `120` |  |
 | workers[0].flavor.memory | string | `"4Gi"` |  |
-| workers[0].flavor.name | string | `"cx22"` |  |
+| workers[0].flavor.name | string | `"cx23"` |  |
 | workers[0].image | string | `"ubuntu-24.04"` |  |
 | workers[0].kubeadmConfigTemplate | object | `{}` |  |
 | workers[0].maxNodes | int | `5` |  |

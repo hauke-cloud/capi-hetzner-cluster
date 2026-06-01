@@ -58,7 +58,7 @@ workers:
     maxNodes: 5
     region: fsn1
     flavor:
-      name: cx22
+      name: cx23
       cpu: 2
       memory: 4Gi
       ephemeralStorage: 40Gi
@@ -77,7 +77,7 @@ bootstrap:
   # which will install Cilium via remote kubeconfig on the target cluster
   cilium:
     enabled: true
-    version: 1.18.1
+    version: 1.19.4
     repoOverrides:
       url: https://helm.cilium.io/
       interval: 5m0s
@@ -113,7 +113,7 @@ bootstrap:
   # which will install the Hetzner CCM via remote kubeconfig on the target cluster
   hetznerCCM:
     enabled: true
-    version: v1.26.0
+    version: v1.31.1
     repoOverrides:
       url: https://charts.hetzner.cloud
       interval: 5m0s
@@ -136,7 +136,7 @@ bootstrap:
   # which will install the Hetzner CSI via remote kubeconfig on the target cluster
   hetznerCSI:
     enabled: true
-    version: 2.17.0
+    version: 2.21.2
     repoOverrides:
       url: https://charts.hetzner.cloud
       interval: 5m0s
@@ -155,7 +155,7 @@ bootstrap:
   # which will install the Cluster Auto-Scaler via remote kubeconfig on the target cluster
   autoscaler:
     enabled: true
-    version: 9.50.1
+    version: 9.57.0
     repoOverrides:
       url: https://kubernetes.github.io/autoscaler
       interval: 5m0s
