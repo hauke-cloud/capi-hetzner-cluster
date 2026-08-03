@@ -51,6 +51,59 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Resolve the effective static route configuration for a node group.
+Accepts a dict of { "root": $, "group": <controlPlanes map or a workers entry> }.
+A group's own staticRoutes replaces the chart wide network.staticRoutes,
+it is not merged into it. Renders nothing when neither defines any routes.
+*/}}
+{{- define "capi-hetzner-cluster.staticRoutes" -}}
+{{- $global := (.root.Values.network).staticRoutes | default dict -}}
+{{- $group := (.group).staticRoutes | default dict -}}
+{{- $effective := $global -}}
+{{- if $group.routes -}}
+{{- $effective = $group -}}
+{{- end -}}
+{{- if $effective.routes -}}
+{{- toYaml $effective -}}
+{{- end -}}
+{{- end }}
+
+{{/*
+Netplan drop-in carrying the static routes of a node group, rendered as an
+entry for a KubeadmConfig `files:` list. Netplan merges per interface keys
+with the image own 50-cloud-init.yaml, so only the routes are declared here.
+Accepts the same dict as capi-hetzner-cluster.staticRoutes.
+*/}}
+{{- define "capi-hetzner-cluster.staticRoutesFile" -}}
+{{- $raw := include "capi-hetzner-cluster.staticRoutes" . -}}
+{{- if $raw }}
+{{- $routes := fromYaml $raw -}}
+- content: |
+    network:
+      version: 2
+      ethernets:
+        {{ $routes.interface | default "eth0" }}:
+          routes:
+          {{- toYaml $routes.routes | nindent 12 }}
+  owner: root:root
+  path: /etc/netplan/99-static-routes.yaml
+  permissions: "0600"
+{{- end }}
+{{- end }}
+
+{{/*
+Commands applying the netplan drop-in above. These have to run before any
+command that depends on the routes, so they are placed at the top of
+preKubeadmCommands.
+Accepts the same dict as capi-hetzner-cluster.staticRoutes.
+*/}}
+{{- define "capi-hetzner-cluster.staticRoutesPreKubeadmCommands" -}}
+{{- if include "capi-hetzner-cluster.staticRoutes" . -}}
+- netplan apply
+{{- end }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "capi-hetzner-cluster.serviceAccountName" -}}

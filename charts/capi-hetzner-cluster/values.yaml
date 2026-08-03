@@ -48,6 +48,8 @@ controlPlanes:
     region: fsn1
   placement:
     type: spread
+  # Replaces network.staticRoutes for the control planes only
+  staticRoutes: {}
   kubeadmConfigTemplate: {}
 
 # Workers
@@ -67,6 +69,8 @@ workers:
       maxPods: 120
     placement:
       type: spread
+    # Replaces network.staticRoutes for this worker group only
+    staticRoutes: {}
     kubeadmConfigTemplate: {}
 
 # Bootstrap
@@ -218,6 +222,21 @@ network:
     pods:
       cidrBlocks:
         - 10.244.0.0/16
+  # Static routes for every node of the cluster.
+  # They are written as a netplan drop-in to /etc/netplan/99-static-routes.yaml
+  # and applied at the start of preKubeadmCommands, so they are already in place
+  # while the nodes pull packages and images.
+  # `interface` defaults to eth0 (public NIC), the private NIC of a Hetzner
+  # network is usually enp7s0.
+  # Set `controlPlanes.staticRoutes` or `workers[].staticRoutes` to replace this
+  # for a single node group. Note that these routes are not rendered when a node
+  # group provides its own full `kubeadmConfigTemplate`, since that replaces the
+  # whole config including the files and commands they rely on.
+  staticRoutes: {}
+  #   interface: enp7s0
+  #   routes:
+  #     - to: 10.0.0.0/8
+  #       via: 10.10.5.1
 
 # Remedations
 remedation:

@@ -3,8 +3,8 @@ kind: KubeadmControlPlane
 metadata:
   name: {{ include "capi-hetzner-cluster.name" $ }}-control-plane
 spec:
-  {{- if .kubeadmConfigTemplate }}
-  {{- with .kubeadmConfigTemplate }}
+  {{- if .Values.controlPlanes.kubeadmConfigTemplate }}
+  {{- with .Values.controlPlanes.kubeadmConfigTemplate }}
   {{- toYaml . | nindent 2 }}
   {{- end }}
   {{- else }}
@@ -80,6 +80,7 @@ spec:
           profiling: "false"
           secure-port: "10259"
     files:
+      {{- include "capi-hetzner-cluster.staticRoutesFile" (dict "root" $ "group" .Values.controlPlanes) | nindent 6 }}
       - content: |
           net.ipv4.conf.lxc*.rp_filter = 0
         owner: root:root
@@ -189,6 +190,7 @@ spec:
           tls-cipher-suites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_128_GCM_SHA256
     preKubeadmCommands:
       - set -x
+      {{- include "capi-hetzner-cluster.staticRoutesPreKubeadmCommands" (dict "root" $ "group" .Values.controlPlanes) | nindent 6 }}
       - export CONTAINERD=1.7.26
       - export RUNC=1.2.5
       - export KUBERNETES_VERSION=$(echo v1.32.7 | sed 's/^v//')
