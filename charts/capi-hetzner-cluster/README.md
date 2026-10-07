@@ -108,7 +108,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | hetzner.token.existingSecret.keys.hetznerRobotPassword | string | `"robot-password"` |  |
 | hetzner.token.existingSecret.keys.hetznerRobotUser | string | `"robot-user"` |  |
 | hetzner.token.existingSecret.name | string | `"prod"` |  |
-| kubernetes.version | string | `"v1.32.7"` |  |
+| kubernetes.version | string | `"v1.37.1"` |  |
 | nameOverride | string | `""` |  |
 | network.clusterNetwork.pods.cidrBlocks[0] | string | `"10.244.0.0/16"` |  |
 | network.hcloudNetwork.enabled | bool | `false` |  |

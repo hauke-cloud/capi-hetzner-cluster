@@ -26,7 +26,7 @@ A Helm chart (`capi-hetzner-cluster`) that deploys a Cluster API workload cluste
 The chart also handles node bootstrap (runc, containerd, kubelet, kubeadm, kubectl) and, optionally, installs Cilium, the Hetzner cloud-controller-manager, the Hetzner CSI driver, and cluster-autoscaler on the new cluster through Flux `HelmRelease` objects. The chart is published as an OCI artifact at `oci://ghcr.io/hauke-cloud/charts/capi-hetzner-cluster`.
 
 - Renders `Cluster`, `HetznerCluster`, `KubeadmControlPlane`, `HCloudMachineTemplate`, and `MachineDeployment` resources with per-pool autoscaler annotations.
-- Configures node bootstrap: locale, swap, runc 1.2.5, containerd 1.7.26, Kubernetes v1.32.7 packages, sysctl and containerd tuning.
+- Configures node bootstrap: locale, swap, runc 1.2.5, containerd 1.7.26, Kubernetes v1.37.1 packages, sysctl and containerd tuning.
 - Optionally bootstraps the remote cluster with Cilium 1.19.4, hcloud-cloud-controller-manager, hcloud-csi, and cluster-autoscaler via Flux.
 - Creates `MachineHealthCheck` and `HCloudRemediationTemplate` pairs for control-plane and worker machines.
 - Supports optional OIDC API-server arguments, an HCloud private network, and per-node-group static routes.
@@ -44,7 +44,7 @@ The chart also handles node bootstrap (runc, containerd, kubelet, kubeadm, kubec
 - Flux 2 controllers (source-controller, helm-controller, kustomize-controller) running in the management cluster, providing `source.toolkit.fluxcd.io/v1`, `helm.toolkit.fluxcd.io/v2`, and `kustomize.toolkit.fluxcd.io/v1`.
 - A Kubernetes secret in the release namespace holding your HCloud API token (default secret name `prod`, key `hcloud`).
 - SSH key(s) pre-registered in your Hetzner Cloud project.
-- Egress internet access for provisioned nodes (they download runc 1.2.5, containerd 1.7.26, and Kubernetes v1.32.7 packages at boot).
+- Egress internet access for provisioned nodes (they download runc 1.2.5, containerd 1.7.26, and Kubernetes v1.37.1 packages at boot).
 - Pull access to `oci://ghcr.io/hauke-cloud/charts` (public; no authentication required).
 
 </llm>
@@ -97,7 +97,7 @@ hetzner:
   sshKeys:
     - default-0
 kubernetes:
-  version: v1.32.7
+  version: v1.37.1
 controlPlanes:
   nodes: 3
   regions:
@@ -144,7 +144,7 @@ The chart is configured entirely through Helm values. The table below covers the
 |-----|---------|-------------|
 | `hetzner.token.existingSecret.name` | `"prod"` | Secret in the release namespace holding the HCloud API token (key `hcloud`). |
 | `hetzner.sshKeys` | `["default-0"]` | SSH key names registered in the Hetzner Cloud project. |
-| `kubernetes.version` | `"v1.32.7"` | Version for `KubeadmControlPlane` and `MachineDeployment`; also hard-coded in `preKubeadmCommands`. |
+| `kubernetes.version` | `"v1.37.1"` | Version for `KubeadmControlPlane` and `MachineDeployment`; also hard-coded in `preKubeadmCommands`. |
 | `controlPlanes` | *(object)* | Control-plane pool: `image` (`ubuntu-24.04`), `nodes` (3), `regions` (`[fsn1]`), `flavor.name` (`cx22`), `endpoint`, `placement.type` (`spread`), `staticRoutes`, `kubeadmConfigTemplate`. |
 | `workers` | *(list)* | Worker pools: `name`, `image`, `minNodes` (0), `maxNodes` (5), `region` (`fsn1`), `flavor` (`cx23`), `placement.type` (`spread`), `staticRoutes`, `configVersion` (increase to roll the pool onto a changed bootstrap config), `kubeadmConfigTemplate`. |
 | `oidc.enabled` | `false` | When true, injects `oidc.*` args into the API server. |

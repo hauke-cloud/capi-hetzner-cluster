@@ -117,8 +117,8 @@ spec:
       - grep VERSION= /etc/os-release; uname -a
       - export CONTAINERD=1.7.26
       - export RUNC=1.2.5
-      - export KUBERNETES_VERSION=$(echo v1.32.7 | sed 's/^v//')
-      - export TRIMMED_KUBERNETES_VERSION=$(echo v1.32.7 | sed 's/^v//' | awk -F .
+      - export KUBERNETES_VERSION=$(echo v1.37.1 | sed 's/^v//')
+      - export TRIMMED_KUBERNETES_VERSION=$(echo v1.37.1 | sed 's/^v//' | awk -F .
         '{print $1 "." $2}')
       - ARCH="$(dpkg --print-architecture)"
       - localectl set-locale LANG=en_US.UTF-8

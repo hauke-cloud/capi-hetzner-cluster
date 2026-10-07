@@ -20,7 +20,7 @@ hetzner:
 
 # Kubernetes
 kubernetes:
-  version: v1.32.7
+  version: v1.37.1
 
 # OIDC
 oidc:
