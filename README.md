@@ -146,7 +146,7 @@ The chart is configured entirely through Helm values. The table below covers the
 | `hetzner.sshKeys` | `["default-0"]` | SSH key names registered in the Hetzner Cloud project. |
 | `kubernetes.version` | `"v1.32.7"` | Version for `KubeadmControlPlane` and `MachineDeployment`; also hard-coded in `preKubeadmCommands`. |
 | `controlPlanes` | *(object)* | Control-plane pool: `image` (`ubuntu-24.04`), `nodes` (3), `regions` (`[fsn1]`), `flavor.name` (`cx22`), `endpoint`, `placement.type` (`spread`), `staticRoutes`, `kubeadmConfigTemplate`. |
-| `workers` | *(list)* | Worker pools: `name`, `image`, `minNodes` (0), `maxNodes` (5), `region` (`fsn1`), `flavor` (`cx23`), `placement.type` (`spread`), `staticRoutes`, `kubeadmConfigTemplate`. |
+| `workers` | *(list)* | Worker pools: `name`, `image`, `minNodes` (0), `maxNodes` (5), `region` (`fsn1`), `flavor` (`cx23`), `placement.type` (`spread`), `staticRoutes`, `configVersion` (increase to roll the pool onto a changed bootstrap config), `kubeadmConfigTemplate`. |
 | `oidc.enabled` | `false` | When true, injects `oidc.*` args into the API server. |
 | `bootstrap.*` | `enabled: true` | Flux bootstrap blocks for Cilium, HCloud CCM, HCloud CSI, cluster-autoscaler, and Flux itself; each has `version`, `repoOverrides`, and `chartOverrides`/`kustomizationOverrides`. |
 | `network` | *(object)* | `clusterNetwork.pods.cidrBlocks` (`["10.244.0.0/16"]`), `hcloudNetwork.enabled` (`false`), `staticRoutes` (`{}`). |

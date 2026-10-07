@@ -125,6 +125,7 @@ Helm chart to deploy a cluster api based Kubernetes cluster to the Hetzner Cloud
 | remedation.timeout | string | `"180s"` |  |
 | remedation.type | string | `"Reboot"` |  |
 | tolerations | list | `[]` |  |
+| workers[0].configVersion | string | `""` |  |
 | workers[0].flavor.cpu | int | `2` |  |
 | workers[0].flavor.ephemeralStorage | string | `"40Gi"` |  |
 | workers[0].flavor.maxPods | int | `120` |  |

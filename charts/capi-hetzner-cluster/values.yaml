@@ -71,6 +71,13 @@ workers:
       type: spread
     # Replaces network.staticRoutes for this worker group only
     staticRoutes: {}
+    # Version of the bootstrap config of this worker group, appended to the name
+    # of its KubeadmConfigTemplate. Existing nodes are not replaced when the
+    # bootstrap config changes (static routes, kubeadmConfigTemplate, chart
+    # upgrades), increase this to roll the group onto the current config.
+    # Leaving it empty keeps the unversioned name. Replaced templates are kept
+    # in the cluster and have to be removed by hand.
+    configVersion: ""
     kubeadmConfigTemplate: {}
 
 # Bootstrap

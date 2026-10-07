@@ -26,7 +26,7 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: KubeadmConfigTemplate
-          name: {{ include "capi-hetzner-cluster.name" $ }}-{{ .name }}
+          name: {{ include "capi-hetzner-cluster.workerBootstrapName" (dict "root" $ "group" .) }}
       clusterName: {{ include "capi-hetzner-cluster.name" $ }}
       failureDomain: {{ .region }}
       infrastructureRef:

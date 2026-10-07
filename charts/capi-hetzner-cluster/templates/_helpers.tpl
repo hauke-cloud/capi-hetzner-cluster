@@ -51,6 +51,28 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Name of the KubeadmConfigTemplate of a worker group.
+Accepts a dict of { "root": $, "group": <a workers entry> }.
+Cluster API only rolls a MachineDeployment when its own spec changes, an in
+place update of the referenced template is ignored. Setting configVersion
+suffixes the name, so bumping it creates a new template, changes the
+bootstrap configRef and thereby rolls the group. Without it the name stays
+as is.
+*/}}
+{{- define "capi-hetzner-cluster.workerBootstrapName" -}}
+{{- $name := printf "%s-%s" (include "capi-hetzner-cluster.name" .root) .group.name -}}
+{{- $version := .group.configVersion -}}
+{{- if kindIs "float64" $version -}}
+{{- $version = int64 $version -}}
+{{- end -}}
+{{- if $version -}}
+{{- printf "%s-%v" $name $version -}}
+{{- else -}}
+{{- $name -}}
+{{- end -}}
+{{- end }}
+
+{{/*
 Resolve the effective static route configuration for a node group.
 Accepts a dict of { "root": $, "group": <controlPlanes map or a workers entry> }.
 A group's own staticRoutes replaces the chart wide network.staticRoutes,
